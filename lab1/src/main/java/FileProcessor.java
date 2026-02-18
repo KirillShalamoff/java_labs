@@ -3,7 +3,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class FileProcessor {
-    // 1. Инициализируем карту сразу!
     public Map<String, Integer> words = new HashMap<>();
 
     public void process(String[] args) {
@@ -22,16 +21,13 @@ public class FileProcessor {
             while ((c = br.read()) != -1) {
                 char ch = (char) c;
 
-                // Если это буква или цифра — добавляем в текущее слово
                 if (Character.isLetterOrDigit(ch)) {
                     sb.append(ch);
                 }
-                // Если это любой другой символ — значит, слово закончилось
                 else {
                     saveWord(sb);
                 }
             }
-            // Не забываем сохранить последнее слово, если файл не закончился разделителем
             saveWord(sb);
 
         } catch (IOException e) {
@@ -42,9 +38,8 @@ public class FileProcessor {
     private void saveWord(StringBuilder sb) {
         if (sb.length() > 0) {
             String word = sb.toString();
-            // Если нужно игнорировать регистр (Кот = кот), добавь .toLowerCase()
             words.put(word, words.getOrDefault(word, 0) + 1);
-            sb.setLength(0); // Очищаем буфер для следующего слова
+            sb.setLength(0);
         }
     }
 }

@@ -7,7 +7,7 @@ public class ListNode {
     public int getFreq() {
         return freq;
     }
-
+//getters + setters
     String name;
     int freq;
     double absFreq;

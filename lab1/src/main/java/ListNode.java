@@ -7,7 +7,15 @@ public class ListNode {
     public int getFreq() {
         return freq;
     }
-//getters + setters
+
+    public String getName() {
+        return this.name;
+    }
+
+    public double getAbsFreq() {
+        return this.absFreq;
+    }
+
     String name;
     int freq;
     double absFreq;

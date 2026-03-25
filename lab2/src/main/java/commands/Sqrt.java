@@ -1,7 +1,8 @@
-
+package commands;
+import context.ExecutionContext;
 import static java.lang.Math.sqrt;
 
-public class SQRT extends Command{
+public class Sqrt extends Command {
     @Override
     public void execute(ExecutionContext context, String[] args){
         Double var = context.getStack().pop();

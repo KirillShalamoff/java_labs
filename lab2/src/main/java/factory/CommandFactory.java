@@ -1,13 +1,18 @@
+package factory;
+
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
+import commands.Command;
 
 public class CommandFactory {
-    // Храним уже созданные объекты (синглтоны команд)
-    private final Map<String, Command> commands = new HashMap<>();
+
+    private final Map<String, Command> commands;
 
     public CommandFactory() {
+
+        this.commands = new HashMap<>();
         loadConfiguration();
     }
 
@@ -26,7 +31,7 @@ public class CommandFactory {
 
                 Command commandInstance = (Command) clazz.getDeclaredConstructor().newInstance();
 
-                commands.put(commandName.toUpperCase(), commandInstance);
+                commands.put(commandName, commandInstance);
             }
         } catch (Exception e) {
             throw new RuntimeException("Ошибка инициализации фабрики: " + e.getMessage(), e);
@@ -34,6 +39,6 @@ public class CommandFactory {
     }
 
     public Command getCommand(String name) {
-        return commands.get(name.toUpperCase());
+        return commands.get(name);
     }
 }

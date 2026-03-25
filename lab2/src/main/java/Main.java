@@ -1,17 +1,27 @@
+import calculator.Calculator;
+import factory.CommandFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class Main {
     public static void main(String[] args) {
+        final Logger logger = LogManager.getLogger(Calculator.class);
+
         try {
+            logger.info("Инициализация фабрики...");
             CommandFactory factory = new CommandFactory();
 
-            // 3. Создаем парсер и передаем ему фабрику
+            logger.info("Инициализация калькулятора...");
             Calculator calculator = new Calculator(factory);
 
-            // 4. Запускаем выполнение файла
-            calculator.calculate(args[0]);
+            if (args.length == 0){
+                calculator.calculate();
+            } else {
+                calculator.calculate(args[0]);
+            }
 
         } catch (Exception e) {
-            // Согласно методичке: выводим ошибку и не «падаем» (хотя Main — это финал)
-            System.err.println("Критическая ошибка запуска: " + e.getMessage());
+            logger.fatal("Критическая ошибка запуска: " + e.getMessage(),e);
         }
     }
 }

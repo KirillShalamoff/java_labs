@@ -27,9 +27,7 @@ public class MainApp extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         try {
-            // 1. Загружаем FXML файл
-            // Убедись, что путь совпадает с расположением файла в resources
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/scene.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/openjfx/scene.fxml"));
             Parent root = loader.load();
 
             // 2. Создаем сцену
@@ -52,7 +50,7 @@ public class MainApp extends Application {
 
     private static void runConsoleVersion() {
         Scanner scanner = new Scanner(System.in);
-        ScoreManager sm = new ScoreManager("/src/main/resouces/org.openfx/HighScores.txt");
+        ScoreManager sm = new ScoreManager("/src/main/resouces/org/openjfx/HighScores.txt");
         while(true) {
             System.out.println("\n=== TETRIS MENU ===");
             System.out.println("[1] - New Game");
@@ -64,7 +62,7 @@ public class MainApp extends Application {
 
             switch (choice) {
                 case "1", "newgame" -> runNewGame();
-                case "2", "highscores" -> sm.printHighScores();
+                case "2", "highscores" -> System.out.print(sm.loadScoresAsString());
                 //case "3", "about" -> printAbout();
                 case "4", "exit" -> { return; }
                 default -> System.out.println("Unknown command!");

@@ -40,11 +40,11 @@ public class TetrisEngine {
 
     public TetrisEngine() {
         this.isRunning = true;
-        this.board = new int[10][20];
+        this.board = new int[20][10]; // Здесь было верно: [Y][X]
         this.factory = new ShapesFactory();
         this.random = new Random();
 
-        this.currentShape = factory.getShape(this.random.nextInt(7));
+        spawnNewShape();
 
     }
     public void tryMoveLeft() {
@@ -82,14 +82,14 @@ public class TetrisEngine {
 
     private void freezeShape(Shape shape) {
         int[][] m = shape.matrix;
-        for (int x = 0; x < 4; x++) {
-            for (int y = 0; y < 4; y++) {
-                if (m[x][y] != 0) {
-                    int targetX = x + shape.x;
-                    int targetY = y + shape.y;
+        for (int y = 0; y < m.length; y++) {
+            for (int x = 0; x < m[y].length; x++) {
+                if (m[y][x] != 0) {
+                    int targetX = shape.x + x;
+                    int targetY = shape.y + y;
 
                     if (targetX >= 0 && targetX < 10 && targetY >= 0 && targetY < 20) {
-                        this.board[targetX][targetY] = m[x][y];
+                        this.board[targetY][targetX] = m[y][x];
                     }
                 }
             }
@@ -108,7 +108,7 @@ public class TetrisEngine {
                         return true;
                     }
 
-                    if (targetY >= 0 && board[targetX][targetY] != 0) {
+                    if (targetY >= 0 && board[targetY][targetX] != 0) {
                         return true;
                     }
                 }
@@ -118,16 +118,21 @@ public class TetrisEngine {
     }
 
     private void spawnNewShape() {
-        this.currentShape = factory.getShape(this.random.nextInt(7));
+        this.currentShape = factory.getShape(this.random.nextInt(7)); //удалить нахуй Shape.color
+        int color = this.random.nextInt(6) + 1;
+        for(int x = 0; x < 4; x++){
+            for(int y = 0; y < 4; y++){
+                this.currentShape.matrix[x][y] *= color;
+            }
+        }
     }
 
     private void clearLines() {
         for (int y = 19; y >= 0; y--) {
             boolean isFull = true;
 
-            // Проверяем, заполнена ли строка
             for (int x = 0; x < 10; x++) {
-                if (this.board[x][y] == 0) {
+                if (this.board[y][x] == 0) {
                     isFull = false;
                     break;
                 }
@@ -144,24 +149,23 @@ public class TetrisEngine {
     private void shiftLinesDown(int startY) {
         for (int y = startY; y > 0; y--) {
             for (int x = 0; x < 10; x++) {
-                this.board[x][y] = this.board[x][y - 1];
+                this.board[y][x] = this.board[y - 1][x];
             }
         }
         for (int x = 0; x < 10; x++) {
-            this.board[x][0] = 0;
+            this.board[0][x] = 0;
         }
     }
     private void handleGameOver() {
         System.out.println("Game Over!");
-        this.board = new int[10][20];
+        this.board = new int[20][10];
     }
 
     private void clearBoard() {
-        for(int i = 0; i <= this.board.length; i++) {
-            for(int j = 0; j <= this.board[i].length; j++) {
+        for(int i = 0; i < this.board.length; i++) {
+            for(int j = 0; j < this.board[i].length; j++) {
                 this.board[i][j] = 0;
             }
         }
     }
 }
-

@@ -15,7 +15,8 @@ public class ShapesFactory {
             case 4 -> new ShapeS();
             case 5 -> new ShapeT();
             case 6 -> new ShapeZ();
-            default ->  new ShapeI();
+            case 7 ->  new ShapeI();
+            default -> throw new IllegalStateException("Unexpected value: " + id);
         };
     }
 }

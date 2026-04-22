@@ -4,8 +4,14 @@ import java.io.*;
 
 public class ScoreManager {
 
-    public static void saveScores(int scores, String path) {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(path))) {
+    private String path;
+
+    public ScoreManager(String path) {
+        this.path = path;
+    }
+
+    public void saveScores(int scores) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(this.path))) {
             Integer sc = scores;
             bw.write("===== " + sc.toString() + " ====\n");
 
@@ -16,8 +22,8 @@ public class ScoreManager {
         }
     }
 
-    public static String loadScoresAsString(String path) {
-        try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+    public String loadScoresAsString() {
+        try (BufferedReader br = new BufferedReader(new FileReader(this.path))) {
             String line;
             String result = "";
             while((line = br.readLine()) != null) {

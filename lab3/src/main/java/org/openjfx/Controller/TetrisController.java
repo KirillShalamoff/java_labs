@@ -9,11 +9,11 @@ import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 import org.openjfx.Engine.TetrisEngine;
 import org.openjfx.View.GraphicsRenderer;
-import org.openjfx.Controller.ScoreManager; // Твой класс для работы с файлом
+import org.openjfx.Controller.ScoreManager;
 
 public class TetrisController {
 
-    private final String PATH_TO_HSTXT = "/src/main/resources/HighScores.txt";
+    private ScoreManager sm;
 
     @FXML private Canvas gameCanvas;
     @FXML private Label scoreLabel;
@@ -26,6 +26,7 @@ public class TetrisController {
     // Метод initialize вызывается автоматически после загрузки FXML
     @FXML
     public void initialize() {
+        this.sm = new ScoreManager("HighScores.txt");
         engine = new TetrisEngine();
         renderer = new GraphicsRenderer(gameCanvas);
 
@@ -53,7 +54,7 @@ public class TetrisController {
             scoreLabel.setText(String.valueOf(engine.getScores()));
             renderer.render(engine, engine.getCurrentShape());
 
-            if (engine.getStatus()) {
+            if (engine.getStatus() == false) {
                 stopGame();
             }
         }
@@ -76,13 +77,16 @@ public class TetrisController {
     private void stopGame() {
         gameLoop.stop();
         engine.stop();
-        ScoreManager.saveScores(engine.getScores(), PATH_TO_HSTXT); // Сохраняем в твой файл!
+        this.sm.saveScores(engine.getScores()); // Сохраняем в твой файл!
 
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Game Over");
-        alert.setHeaderText("Вы проиграли!");
-        alert.setContentText("Ваш результат: " + engine.getScores());
-        alert.showAndWait();
+        Platform.runLater(() -> {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Game Over");
+            alert.setHeaderText("Вы проиграли!");
+            alert.setContentText("Ваш результат: " + engine.getScores());
+            alert.showAndWait();
+
+        });
     }
 
     // Методы для кнопок из FXML
@@ -90,13 +94,14 @@ public class TetrisController {
     void onNewGameClick() {
         engine.start();
         gameLoop.start();
+        gameCanvas.requestFocus(); // Это критично для HBox!
         renderer.render(engine, engine.getCurrentShape());
     }
 
     @FXML
     void onHighScoresClick() {
         // Просто выводим Alert с данными из ScoreManager
-        String scores = String.join("\n", ScoreManager.loadScoresAsString(PATH_TO_HSTXT));
+        String scores = String.join("\n", this.sm.loadScoresAsString());
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("High Scores");
         alert.setHeaderText("Лучшие результаты:");

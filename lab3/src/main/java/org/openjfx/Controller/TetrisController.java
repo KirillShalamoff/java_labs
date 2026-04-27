@@ -10,23 +10,30 @@ import javafx.scene.input.KeyEvent;
 import org.openjfx.Engine.TetrisEngine;
 import org.openjfx.View.GraphicsRenderer;
 import org.openjfx.Controller.ScoreManager;
+import java.util.List;
 
 public class TetrisController {
 
-    private ScoreManager sm;
-
+    private ScoreManager scoreManager;
+    private SoundManager soundManager;
     @FXML private Canvas gameCanvas;
     @FXML private Label scoreLabel;
+
+    @FXML private Canvas nextShapeCanvas;
 
     private TetrisEngine engine;
     private GraphicsRenderer renderer;
     private AnimationTimer gameLoop;
     private long lastUpdate = 0;
+    private boolean isMuted = false; // Флаг для мута
+    private boolean isGameOverSoundPlayed = false; // Чтобы звук смерти играл 1 раз
 
     // Метод initialize вызывается автоматически после загрузки FXML
     @FXML
     public void initialize() {
-        this.sm = new ScoreManager("HighScores.txt");
+        this.soundManager = new SoundManager();
+        soundManager.playBackgroundMusic("/org/openjfx/music/theme.mp3");
+        this.scoreManager = new ScoreManager("./src/main/resources/org/openjfx/HighScores.txt");
         engine = new TetrisEngine();
         renderer = new GraphicsRenderer(gameCanvas);
 
@@ -34,7 +41,6 @@ public class TetrisController {
         gameLoop = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                // now в наносекундах. 500_000_000 нс = 0.5 сек
                 if (now - lastUpdate >= 500_000_000) {
                     updateGame();
                     lastUpdate = now;
@@ -49,14 +55,15 @@ public class TetrisController {
     }
 
     private void updateGame() {
-        if (engine.getStatus()) {
-            engine.update();
-            scoreLabel.setText(String.valueOf(engine.getScores()));
-            renderer.render(engine, engine.getCurrentShape());
-
-            if (engine.getStatus() == false) {
-                stopGame();
+        engine.update();
+        scoreLabel.setText(String.valueOf(engine.getScores()));
+        renderer.render(engine, engine.getCurrentShape(), engine.getNextShape(), nextShapeCanvas);
+        if (engine.getStatus() == false) {
+            if(!isGameOverSoundPlayed) {
+                soundManager.playGameOverSound("/org/openjfx/music/game_over.mp3");
+                isGameOverSoundPlayed = true;
             }
+            stopGame();
         }
     }
 
@@ -71,13 +78,15 @@ public class TetrisController {
             case ESCAPE   -> stopGame();
         }
         // Перерисовываем мгновенно при нажатии кнопки
-        renderer.render(engine, engine.getCurrentShape());
+        renderer.render(engine, engine.getCurrentShape(), engine.getNextShape(), nextShapeCanvas);
     }
 
     private void stopGame() {
         gameLoop.stop();
         engine.stop();
-        this.sm.saveScores(engine.getScores()); // Сохраняем в твой файл!
+        this.scoreManager.saveScores(engine.getScores()); // Сохраняем в твой файл!
+        engine.setScores(0);
+
 
         Platform.runLater(() -> {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -92,20 +101,37 @@ public class TetrisController {
     // Методы для кнопок из FXML
     @FXML
     void onNewGameClick() {
+        isGameOverSoundPlayed = false; // Сбрасываем флаг для новой игры
         engine.start();
         gameLoop.start();
         gameCanvas.requestFocus(); // Это критично для HBox!
-        renderer.render(engine, engine.getCurrentShape());
+        renderer.render(engine, engine.getCurrentShape(), engine.getNextShape(), nextShapeCanvas);
     }
 
     @FXML
-    void onHighScoresClick() {
-        // Просто выводим Alert с данными из ScoreManager
-        String scores = String.join("\n", this.sm.loadScoresAsString());
+    void onMuteClick() {
+        isMuted = !isMuted;
+        soundManager.setMuted(isMuted);
+        System.out.println(isMuted ? "Звук выключен" : "Звук включен");
+    }
+
+    @FXML
+    private void onHighScoresClick() {
+        List<Integer> sortedScores = this.scoreManager.loadScoresAsList();
+
+        // Склеиваем числа из списка в строку, разделяя их переносом строки \n
+        StringBuilder sb = new StringBuilder();
+        for (Integer s : sortedScores) {
+            sb.append(s).append("\n");
+        }
+
+        String resultText = sb.toString();
+
+        // Выводим (пример с Alert)
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("High Scores");
-        alert.setHeaderText("Лучшие результаты:");
-        alert.setContentText(scores.isEmpty() ? "Рекордов пока нет" : scores);
+        alert.setTitle("Рекорды");
+        alert.setHeaderText("Результаты по возрастанию:");
+        alert.setContentText(resultText.isEmpty() ? "Список пуст" : resultText);
         alert.showAndWait();
     }
 
@@ -114,7 +140,7 @@ public class TetrisController {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("About");
         alert.setHeaderText("Tetris JavaFX");
-        alert.setContentText("Сделано с душой и без ебаных слипов.");
+        alert.setContentText(engine.getAbout());
         alert.showAndWait();
     }
 

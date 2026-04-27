@@ -17,12 +17,12 @@ public class ConsoleRenderer {
                 int localY = y - currentShape.y;
 
                 if (localX >= 0 && localX < 4 && localY >= 0 && localY < 4) {
-                    if (currentShape.matrix[localX][localY] != 0) {
+                    if (currentShape.matrix[localY][localX] != 0) {
                         isShapeBlock = true;
                     }
                 }
 
-                if (board[x][y] > 0 || isShapeBlock) {
+                if (board[y][x] > 0 || isShapeBlock) {
                     System.out.print("[]");
                 } else {
                     System.out.print(" .");

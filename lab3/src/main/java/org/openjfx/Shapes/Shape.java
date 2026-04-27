@@ -35,7 +35,7 @@ abstract public class Shape {
         this.x += 1;
     }
 
-    public void rotate() {
+    public int[][] rotateMatrix() {
         int n = matrix.length;
         int[][] rotatedMatrix = new int[n][n];
 
@@ -44,6 +44,6 @@ abstract public class Shape {
                 rotatedMatrix[j][n - 1 - i] = this.matrix[i][j];
             }
         }
-        this.matrix = rotatedMatrix;
+        return rotatedMatrix;
     }
 }

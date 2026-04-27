@@ -10,11 +10,32 @@ public class TetrisEngine {
     private int[][] board;
     private ShapesFactory factory;
     private final Random random;
-
     private Shape currentShape;
+    private Shape nextShape;
+    private String about;
+
+    public TetrisEngine() {
+        this.isRunning = true;
+        this.board = new int[20][10]; // Здесь было верно: [Y][X]
+        this.factory = new ShapesFactory();
+        this.random = new Random();
+        this.about = "сделано с душой и без фигни.\n ver:xx.xxx.xxxx";
+
+        this.currentShape = spawnNewShape();
+        this.nextShape = spawnNewShape();
+
+    }
+
+    public String getAbout() {
+        return about;
+    }
 
     public int getScores() {
         return scores;
+    }
+
+    public void setScores(int scores) {
+        this.scores = scores;
     }
 
     public void start() {
@@ -38,15 +59,9 @@ public class TetrisEngine {
         return this.currentShape;
     }
 
-    public TetrisEngine() {
-        this.isRunning = true;
-        this.board = new int[20][10]; // Здесь было верно: [Y][X]
-        this.factory = new ShapesFactory();
-        this.random = new Random();
+    public Shape getNextShape(){ return this.nextShape; }
 
-        spawnNewShape();
 
-    }
     public void tryMoveLeft() {
         if (!isInvalidMove(currentShape.x - 1, currentShape.y, currentShape.matrix)) {
             currentShape.moveLeft();
@@ -60,24 +75,35 @@ public class TetrisEngine {
     }
 
     public void tryRotate() {
-        Shape nextShape = currentShape;
-        nextShape.rotate();
-        if (!isInvalidMove(currentShape.x, currentShape.y, nextShape.matrix)) {
-            currentShape.rotate();
+        if (!isInvalidMove(currentShape.x, currentShape.y, currentShape.rotateMatrix())) {
+            currentShape.matrix = currentShape.rotateMatrix();
         }
     }
 
     public void update() {
         if (isInvalidMove(currentShape.x, currentShape.y + 1, currentShape.matrix)) {
             freezeShape(currentShape);
-            clearLines();
-            spawnNewShape();
-            if (isInvalidMove(currentShape.x, currentShape.y, currentShape.matrix)) {
+
+            if (isInvalidMove(nextShape.x, nextShape.y, nextShape.matrix) && isFull()) {
                 this.isRunning = false;
+                return;
             }
+
+            clearLines();
+            currentShape = nextShape;
+            nextShape = spawnNewShape();
+
+
         } else {
             currentShape.moveDown();
         }
+    }
+
+    private boolean isFull() {
+        if (this.board[0][5] + this.board[0][6] != 0) {
+            return true;
+        }
+        return false;
     }
 
     private void freezeShape(Shape shape) {
@@ -108,7 +134,7 @@ public class TetrisEngine {
                         return true;
                     }
 
-                    if (targetY >= 0 && board[targetY][targetX] != 0) {
+                    if ((targetY >= 0) && (board[targetY][targetX] != 0)) {
                         return true;
                     }
                 }
@@ -117,14 +143,27 @@ public class TetrisEngine {
         return false;
     }
 
-    private void spawnNewShape() {
-        this.currentShape = factory.getShape(this.random.nextInt(7)); //удалить нахуй Shape.color
-        int color = this.random.nextInt(6) + 1;
-        for(int x = 0; x < 4; x++){
-            for(int y = 0; y < 4; y++){
-                this.currentShape.matrix[x][y] *= color;
+    private Shape spawnNewShape() {
+        // 1. Получаем болванку из фабрики
+        Shape shape = factory.getShape(this.random.nextInt(7));
+
+        // 2. Генерируем случайный цвет (1-7)
+        int colorId = this.random.nextInt(7) + 1;
+
+        // 3. Красим матрицу
+        int[][] m = shape.matrix;
+        for (int y = 0; y < m.length; y++) {
+            for (int x = 0; x < m[y].length; x++) {
+                if (m[y][x] != 0) {
+                    m[y][x] = colorId; // Присваиваем ID цвета вместо 1
+                }
             }
         }
+
+        shape.x = 3;   // Центр по горизонтали
+        shape.y = -3;  // Прячем фигуру выше видимой зоны (за верхнюю границу)
+
+        return shape;
     }
 
     private void clearLines() {

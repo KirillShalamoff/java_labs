@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import org.openjfx.Controller.ConsoleInputHandler;
 import org.openjfx.Controller.ScoreManager;
@@ -19,6 +20,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.Buffer;
+import java.util.List;
 import java.util.Scanner;
 
 
@@ -50,7 +52,8 @@ public class MainApp extends Application {
 
     private static void runConsoleVersion() {
         Scanner scanner = new Scanner(System.in);
-        ScoreManager sm = new ScoreManager("/src/main/resouces/org/openjfx/HighScores.txt");
+        ScoreManager sm = new ScoreManager("./src/main/resources/org/openjfx/HighScores.txt");
+        TetrisEngine engine = new TetrisEngine();
         while(true) {
             System.out.println("\n=== TETRIS MENU ===");
             System.out.println("[1] - New Game");
@@ -61,17 +64,32 @@ public class MainApp extends Application {
             String choice = scanner.nextLine().toLowerCase();
 
             switch (choice) {
-                case "1", "newgame" -> runNewGame();
-                case "2", "highscores" -> System.out.print(sm.loadScoresAsString());
-                //case "3", "about" -> printAbout();
+                case "1", "newgame" -> runNewGame(engine, sm);
+                case "2", "highscores" -> printHighScores(sm);
+                case "3", "about" -> System.out.print("About Game: \n" + engine.getAbout() + "\n");
                 case "4", "exit" -> { return; }
                 default -> System.out.println("Unknown command!");
             }
         }
     }
 
-    private static void runNewGame() {
-        TetrisEngine engine = new TetrisEngine();
+    private static void printHighScores(ScoreManager sm) {
+        List<Integer> sortedScores = sm.loadScoresAsList();
+
+        StringBuilder sb = new StringBuilder();
+        for (Integer s : sortedScores) {
+            sb.append(s).append("\n");
+        }
+
+        String resultText = sb.toString();
+
+
+        System.out.println("Best results:");
+        System.out.print(resultText.isEmpty() ? "Список пуст" : resultText);
+    }
+
+    private static void runNewGame(TetrisEngine engine, ScoreManager sm) {
+
         ConsoleInputHandler inputHandler = new ConsoleInputHandler();
 
         while(engine.getStatus()) {
@@ -94,6 +112,10 @@ public class MainApp extends Application {
                 e.printStackTrace();
             }
         }
+        sm.saveScores(engine.getScores());
+        System.out.println("\nCongrats! You are earned" + engine.getScores() + "scores!\n");
+        engine.setScores(0);
+
     }
 
     public static void main(String[] args) {

@@ -13,7 +13,7 @@
 
         <Canvas fx:id="gameCanvas" height="600.0" width="300.0" />
 
-        <VBox alignment="TOP_CENTER" prefWidth="150.0" spacing="20.0" style="-fx-background-color: #34495e;">
+        <VBox alignment="TOP_CENTER" prefWidth="150.0" spacing="15.0" style="-fx-background-color: #34495e;">
             <padding>
                 <Insets bottom="20.0" left="10.0" right="10.0" top="20.0" />
             </padding>
@@ -29,10 +29,24 @@
                     </font>
                 </Label>
 
-                <Button fx:id="newGameBtn" focusTraversable="false" onAction="#onNewGameClick" prefWidth="120.0" text="New Game" />
-                <Button fx:id="highScoresBtn" focusTraversable="false" onAction="#onHighScoresClick" prefWidth="120.0" text="High Scores" />
-                <Button fx:id="aboutBtn" focusTraversable="false" onAction="#onAboutClick" prefWidth="120.0" text="About" />
-                <Button fx:id="exitBtn" focusTraversable="false" onAction="#onExitClick" prefWidth="120.0" text="Exit" />
+                <VBox prefHeight="10.0" />
+
+                <Label text="NEXT" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="18.0" />
+                    </font>
+                </Label>
+                <Canvas fx:id="nextShapeCanvas" height="140.0" width="140.0" />
+
+                <VBox alignment="BOTTOM_CENTER" spacing="10.0" VBox.vgrow="ALWAYS">
+                    <children>
+                        <Button fx:id="muteBtn" focusTraversable="false" onAction="#onMuteClick" prefWidth="60.0" text="Mute " />
+                        <Button fx:id="newGameBtn" focusTraversable="false" onAction="#onNewGameClick" prefWidth="120.0" text="New Game" />
+                        <Button fx:id="highScoresBtn" focusTraversable="false" onAction="#onHighScoresClick" prefWidth="120.0" text="High Scores" />
+                        <Button fx:id="aboutBtn" focusTraversable="false" onAction="#onAboutClick" prefWidth="120.0" text="About" />
+                        <Button fx:id="exitBtn" focusTraversable="false" onAction="#onExitClick" prefWidth="120.0" text="Exit" />
+                    </children>
+                </VBox>
             </children>
         </VBox>
 

@@ -1,25 +1,17 @@
+//прогнозирование с рамками + движение по диоганали
 package org.openjfx;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import org.openjfx.Controller.ConsoleInputHandler;
-import org.openjfx.Controller.ScoreManager;
+import org.openjfx.Managers.ScoreEntry;
+import org.openjfx.Managers.ScoreManager;
 import org.openjfx.Engine.TetrisEngine;
 import org.openjfx.View.ConsoleRenderer;
-import org.openjfx.View.GraphicsRenderer;
-
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
-import java.nio.Buffer;
 import java.util.List;
 import java.util.Scanner;
 
@@ -45,7 +37,7 @@ public class MainApp extends Application {
             primaryStage.show();
 
         } catch (IOException e) {
-            System.err.println("Ошибка загрузки FXML файла. Проверь путь к scene.fxml");
+            System.err.println("eror while loading FXML file. Check path to scene.fxml!");
             e.printStackTrace();
         }
     }
@@ -54,6 +46,10 @@ public class MainApp extends Application {
         Scanner scanner = new Scanner(System.in);
         ScoreManager sm = new ScoreManager("./src/main/resources/org/openjfx/HighScores.txt");
         TetrisEngine engine = new TetrisEngine();
+
+        System.out.println("entry your name:\n");
+        String playerName = scanner.nextLine();
+
         while(true) {
             System.out.println("\n=== TETRIS MENU ===");
             System.out.println("[1] - New Game");
@@ -64,7 +60,7 @@ public class MainApp extends Application {
             String choice = scanner.nextLine().toLowerCase();
 
             switch (choice) {
-                case "1", "newgame" -> runNewGame(engine, sm);
+                case "1", "newgame" -> runNewGame(engine, sm, playerName);
                 case "2", "highscores" -> printHighScores(sm);
                 case "3", "about" -> System.out.print("About Game: \n" + engine.getAbout() + "\n");
                 case "4", "exit" -> { return; }
@@ -74,22 +70,22 @@ public class MainApp extends Application {
     }
 
     private static void printHighScores(ScoreManager sm) {
-        List<Integer> sortedScores = sm.loadScoresAsList();
+        List<ScoreEntry> sortedScores = sm.loadScores();
 
         StringBuilder sb = new StringBuilder();
-        for (Integer s : sortedScores) {
-            sb.append(s).append("\n");
+        for (ScoreEntry se : sortedScores) {
+            sb.append(se.getName() + " - " + se.getScore());
         }
 
         String resultText = sb.toString();
 
 
         System.out.println("Best results:");
-        System.out.print(resultText.isEmpty() ? "Список пуст" : resultText);
+        System.out.print(resultText.isEmpty() ? "List is empty!" : resultText);
     }
 
-    private static void runNewGame(TetrisEngine engine, ScoreManager sm) {
-
+    private static void runNewGame(TetrisEngine engine, ScoreManager sm, String playerName) {
+        engine.start();
         ConsoleInputHandler inputHandler = new ConsoleInputHandler();
 
         while(engine.getStatus()) {
@@ -104,16 +100,17 @@ public class MainApp extends Application {
                 case "RIGHT"  -> engine.tryMoveRight();
                 case "ROTATE" -> engine.tryRotate();
                 case "DOWN"   -> engine.update();
+                case "HADRDDROP" -> engine.hardDrop();
             }
 
             try {
-                Thread.sleep(1500); // Пауза полсекунды
+                Thread.sleep(500); // Пауза полсекунды
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
-        sm.saveScores(engine.getScores());
-        System.out.println("\nCongrats! You are earned" + engine.getScores() + "scores!\n");
+        sm.saveScore(engine.getScores(), playerName);
+        System.out.println("\nCongrats! You are earned " + engine.getScores() + " scores!\n");
         engine.setScores(0);
 
     }

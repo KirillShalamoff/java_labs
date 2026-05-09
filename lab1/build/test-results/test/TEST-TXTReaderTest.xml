@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="TXTReaderTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-03-15T20:04:43.254Z" hostname="kirillchik-NP5x-60-7x-RNx1" time="0.008">
+  <properties/>
+  <testcase name="testReadFile()" classname="TXTReaderTest" time="0.008"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

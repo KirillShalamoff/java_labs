@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -40,6 +41,7 @@
 
                 <VBox alignment="BOTTOM_CENTER" spacing="10.0" VBox.vgrow="ALWAYS">
                     <children>
+                        <TextField fx:id="playerNameField" promptText="entry your name" maxWidth="150" focusTraversable="false" />
                         <Button fx:id="muteBtn" focusTraversable="false" onAction="#onMuteClick" prefWidth="60.0" text="Mute " />
                         <Button fx:id="newGameBtn" focusTraversable="false" onAction="#onNewGameClick" prefWidth="120.0" text="New Game" />
                         <Button fx:id="highScoresBtn" focusTraversable="false" onAction="#onHighScoresClick" prefWidth="120.0" text="High Scores" />

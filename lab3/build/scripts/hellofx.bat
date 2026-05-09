@@ -69,7 +69,7 @@ goto fail
 @rem Setup the command line
 
 set CLASSPATH=
-set MODULE_PATH=%APP_HOME%\lib\hellofx.jar;%APP_HOME%\lib\javafx-fxml-21-linux.jar;%APP_HOME%\lib\javafx-controls-21-linux.jar;%APP_HOME%\lib\javafx-media-21-linux.jar;%APP_HOME%\lib\javafx-graphics-21-linux.jar;%APP_HOME%\lib\javafx-base-21-linux.jar
+set MODULE_PATH=%APP_HOME%\lib\hellofx.jar;%APP_HOME%\lib\log4j-core-2.23.1.jar;%APP_HOME%\lib\log4j-api-2.23.1.jar;%APP_HOME%\lib\javafx-fxml-21-linux.jar;%APP_HOME%\lib\javafx-controls-21-linux.jar;%APP_HOME%\lib\javafx-media-21-linux.jar;%APP_HOME%\lib\javafx-graphics-21-linux.jar;%APP_HOME%\lib\javafx-base-21-linux.jar
 
 @rem Execute hellofx
 "%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %HELLOFX_OPTS%  -classpath "%CLASSPATH%" --module-path "%MODULE_PATH%" --module hellofx/org.openjfx.MainApp %*

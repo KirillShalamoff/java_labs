@@ -5,6 +5,7 @@ import org.openjfx.Shapes.ShapesFactory;
 import java.util.Random;
 
 public class TetrisEngine {
+
     private int scores;
     private boolean isRunning;
     private int[][] board;
@@ -15,11 +16,11 @@ public class TetrisEngine {
     private String about;
 
     public TetrisEngine() {
-        this.isRunning = true;
+        this.isRunning = false;
         this.board = new int[20][10]; // Здесь было верно: [Y][X]
         this.factory = new ShapesFactory();
         this.random = new Random();
-        this.about = "сделано с душой и без фигни.\n ver:xx.xxx.xxxx";
+        this.about = "made with love without stuff.\n ver:xx.xxx.xxxx";
 
         this.currentShape = spawnNewShape();
         this.nextShape = spawnNewShape();
@@ -74,10 +75,29 @@ public class TetrisEngine {
         }
     }
 
+    public void tryMoveLeftDiag() {
+        if (!isInvalidMove(currentShape.x - 1, currentShape.y + 1, currentShape.matrix)) {
+            currentShape.moveLeftDiag();
+        }
+    }
+
+    public void tryMoveRightDiag() {
+        if (!isInvalidMove(currentShape.x + 1, currentShape.y + 1, currentShape.matrix)) {
+            currentShape.moveRightDiag();
+        }
+    }
+
     public void tryRotate() {
         if (!isInvalidMove(currentShape.x, currentShape.y, currentShape.rotateMatrix())) {
             currentShape.matrix = currentShape.rotateMatrix();
         }
+    }
+
+    public void hardDrop() {
+        while(!isInvalidMove(currentShape.x, currentShape.y + 1, currentShape.matrix)) {
+            currentShape.y++;
+        }
+        freezeShape(currentShape);
     }
 
     public void update() {
@@ -92,6 +112,7 @@ public class TetrisEngine {
             clearLines();
             currentShape = nextShape;
             nextShape = spawnNewShape();
+
 
 
         } else {
@@ -122,7 +143,7 @@ public class TetrisEngine {
         }
     }
 
-    private boolean isInvalidMove(int nextX, int nextY, int[][] nextMatrix) {
+    public boolean isInvalidMove(int nextX, int nextY, int[][] nextMatrix) {
         for (int row = 0; row < nextMatrix.length; row++) {
             for (int col = 0; col < nextMatrix[row].length; col++) {
 
@@ -146,9 +167,13 @@ public class TetrisEngine {
     private Shape spawnNewShape() {
         // 1. Получаем болванку из фабрики
         Shape shape = factory.getShape(this.random.nextInt(7));
+        while (shape.equals(currentShape) || shape.equals(nextShape)) {
+            shape = factory.getShape(this.random.nextInt(7));
+        }
 
         // 2. Генерируем случайный цвет (1-7)
         int colorId = this.random.nextInt(7) + 1;
+
 
         // 3. Красим матрицу
         int[][] m = shape.matrix;
@@ -194,10 +219,6 @@ public class TetrisEngine {
         for (int x = 0; x < 10; x++) {
             this.board[0][x] = 0;
         }
-    }
-    private void handleGameOver() {
-        System.out.println("Game Over!");
-        this.board = new int[20][10];
     }
 
     private void clearBoard() {

@@ -5,7 +5,7 @@ import org.openjfx.Shapes.Shape;
 public class ConsoleRenderer {
     public static void render(int[][] board, Shape currentShape) {
         System.out.flush();
-
+        System.out.println("______________________");
         for (int y = 0; y < 20; y++) {
             System.out.print("|");
             for (int x = 0; x < 10; x++) {
@@ -30,6 +30,8 @@ public class ConsoleRenderer {
             }
             System.out.println("|");
         }
+        System.out.println("______________________");
+
     }
 }
 

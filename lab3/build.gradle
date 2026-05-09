@@ -8,6 +8,16 @@ repositories {
     mavenCentral()
 }
 
+dependencies {
+    // 1. Логирование (Log4j2)
+    implementation 'org.apache.logging.log4j:log4j-api:2.23.1'
+    implementation 'org.apache.logging.log4j:log4j-core:2.23.1'
+
+    // 2. Тестирование (JUnit 5)
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.2'
+}
+
 javafx {
     version = "21"
     modules = [ 'javafx.controls', 'javafx.fxml' , 'javafx.media' ]

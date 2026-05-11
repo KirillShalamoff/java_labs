@@ -4,52 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e75e8446-6405-43e2-9e6b-20893b5cac44" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gradle/8.5/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.5/checksums/checksums.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/8.5/checksums/md5-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.5/checksums/md5-checksums.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/8.5/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.5/checksums/sha1-checksums.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/8.5/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.5/executionHistory/executionHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/8.5/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.5/executionHistory/executionHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/8.5/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.5/fileHashes/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/8.5/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.5/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/8.5/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.5/fileHashes/resourceHashesCache.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/distributions/hellofx.tar" beforeDir="false" afterPath="$PROJECT_DIR$/build/distributions/hellofx.tar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/resources/main/org/openjfx/HighScores.txt" beforeDir="false" afterPath="$PROJECT_DIR$/build/resources/main/org/openjfx/HighScores.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/resources/main/org/openjfx/scene.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/build/resources/main/org/openjfx/scene.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/resources/main/org/openjfx/styles.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/scripts/hellofx" beforeDir="false" afterPath="$PROJECT_DIR$/build/scripts/hellofx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/scripts/hellofx.bat" beforeDir="false" afterPath="$PROJECT_DIR$/build/scripts/hellofx.bat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/compileTransaction/stash-dir/SoundManager.class.uniqueId0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/compileTransaction/stash-dir/TetrisController$1.class.uniqueId4" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/compileTransaction/stash-dir/TetrisController$2.class.uniqueId2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/compileTransaction/stash-dir/TetrisController.class.uniqueId1" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/compileTransaction/stash-dir/module-info.class.uniqueId3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/openjfx/Controller/ConsoleInputHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/openjfx/Controller/ConsoleInputHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/openjfx/Controller/ScoreManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/openjfx/Managers/ScoreManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/openjfx/Controller/SoundManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/openjfx/Managers/SoundManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/openjfx/Controller/TetrisController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/openjfx/Controller/TetrisController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/openjfx/Engine/TetrisEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/openjfx/Engine/TetrisEngine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/openjfx/MainApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/openjfx/MainApp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/openjfx/Shapes/Shape.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/openjfx/Shapes/Shape.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/openjfx/Shapes/ShapeI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/openjfx/Shapes/ShapeI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/openjfx/Shapes/ShapeJ.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/openjfx/Shapes/ShapeJ.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/openjfx/Shapes/ShapeL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/openjfx/Shapes/ShapeL.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/openjfx/Shapes/ShapeO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/openjfx/Shapes/ShapeO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/openjfx/Shapes/ShapeS.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/openjfx/Shapes/ShapeS.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/openjfx/Shapes/ShapeT.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/openjfx/Shapes/ShapeT.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/openjfx/Shapes/ShapeZ.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/openjfx/Shapes/ShapeZ.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/openjfx/View/ConsoleRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/openjfx/View/ConsoleRenderer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/openjfx/View/GraphicsRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/openjfx/View/GraphicsRenderer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/openjfx/HighScores.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/openjfx/HighScores.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/openjfx/scene.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/openjfx/scene.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/openjfx/styles.css" beforeDir="false" />
-    </list>
+    <list default="true" id="e75e8446-6405-43e2-9e6b-20893b5cac44" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -119,28 +74,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Unnamed.executor": "Run",
-    "Gradle.Build lab3.executor": "Run",
-    "Gradle.Download Sources.executor": "Run",
-    "Gradle.lab3 [:org.openjfx.MainApp.main()].executor": "Run",
-    "Gradle.lab3 [build].executor": "Run",
-    "Gradle.lab3 [clean].executor": "Run",
-    "Gradle.lab3 [run].executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "lab3",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/home/kirillchik/proga_java/lab3",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.keymap"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Unnamed.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Build lab3.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Download Sources.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.lab3 [:org.openjfx.MainApp.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.lab3 [build].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.lab3 [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.lab3 [run].executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;lab3&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/kirillchik/proga_java/lab3&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/resources" />

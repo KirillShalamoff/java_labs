@@ -13,12 +13,12 @@ public class ConsoleInputHandler {
                 int key = System.in.read();
                 logger.info("registered key: {}", key);
                 return switch (key) {
-                    case 27      -> "EXIT";
+                    case 'q'      -> "EXIT";
                     case 'a', 'A' -> "LEFT";
                     case 'd', 'D' -> "RIGHT";
                     case 'w', 'W' -> "ROTATE";
                     case 's', 'S' -> "DOWN";
-                    case ' ' -> "HARDDROP";
+                    case 32 -> "HARDDROP";
                     default -> "NONE";
                 };
             }

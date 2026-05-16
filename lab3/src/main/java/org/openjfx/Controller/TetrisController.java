@@ -118,7 +118,7 @@ public class TetrisController {
     private void stopGame() {
         gameLoop.stop();
         engine.stop();
-        this.scoreManager.saveScore(engine.getScores(), playerName); // Сохраняем в твой файл!
+        this.scoreManager.saveScore(engine.getScores(), playerName);
 
         Platform.runLater(() -> {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -144,7 +144,7 @@ public class TetrisController {
         engine.start();
         gameLoop.start();
         logger.info("new game started");
-        gameCanvas.requestFocus(); // Это критично для HBox!
+        gameCanvas.requestFocus();
         renderer.render(engine, engine.getCurrentShape(), engine.getNextShape(), nextShapeCanvas);
     }
 

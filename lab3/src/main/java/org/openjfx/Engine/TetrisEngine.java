@@ -104,7 +104,7 @@ public class TetrisEngine {
         if (isInvalidMove(currentShape.x, currentShape.y + 1, currentShape.matrix)) {
             freezeShape(currentShape);
 
-            if (isInvalidMove(nextShape.x, nextShape.y, nextShape.matrix) && isFull()) {
+            if (isInvalidMove(nextShape.x, nextShape.y + 1, nextShape.matrix) && isFull()) {
                 this.isRunning = false;
                 return;
             }

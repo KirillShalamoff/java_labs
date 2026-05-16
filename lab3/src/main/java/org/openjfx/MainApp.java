@@ -64,7 +64,6 @@ public class MainApp extends Application {
                 case "2", "highscores" -> printHighScores(sm);
                 case "3", "about" -> System.out.print("About Game: \n" + engine.getAbout() + "\n");
                 case "4", "exit" -> { return; }
-                default -> System.out.println("Unknown command!");
             }
         }
     }
@@ -74,7 +73,7 @@ public class MainApp extends Application {
 
         StringBuilder sb = new StringBuilder();
         for (ScoreEntry se : sortedScores) {
-            sb.append(se.getName() + " - " + se.getScore());
+            sb.append(se.getName() + " - " + se.getScore() + "\n");
         }
 
         String resultText = sb.toString();

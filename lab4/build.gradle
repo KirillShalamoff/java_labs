@@ -1,0 +1,47 @@
+plugins {
+    id 'java'
+    id 'application'
+    // Добавляем плагин JavaFX
+    id 'org.openjfx.javafxplugin' version '0.1.0'
+}
+
+group = 'org.example'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+// Настройка плагина
+javafx {
+    version = "25" // Можно поставить "21" или "23", они стабильнее для плагина
+    modules = [ 'javafx.controls', 'javafx.fxml' ]
+}
+
+dependencies {
+    // Твои зависимости Log4j2 и JUnit
+    implementation 'org.apache.logging.log4j:log4j-api:2.20.0'
+    implementation 'org.apache.logging.log4j:log4j-core:2.20.0'
+
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+application {
+    // Убедись, что путь к классу правильный!
+    mainClass = 'MainApp'
+}
+
+// Это решит проблему с Missing Runtime Components при запуске через IDE
+run {
+    doFirst {
+        jvmArgs = [
+                '--module-path', classpath.asPath,
+                '--add-modules', 'javafx.controls,javafx.fxml'
+        ]
+    }
+}
+
+run {
+    jvmArgs = ['-Xmx1g', '-Xms256m']
+}

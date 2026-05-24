@@ -1,9 +1,13 @@
 package Deal;
 
+import Items.Accessory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import Items.Auto;
 import Storeges.Storage;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Dealer implements Runnable{
     private static final Logger logger = LogManager.getLogger(Dealer.class);
@@ -29,6 +33,11 @@ public class Dealer implements Runnable{
             while (!Thread.currentThread().isInterrupted()) {
                 Thread.sleep(delay);
                 Auto auto = storage.get();
+                List<Accessory> accesories = auto.getAccessories();
+                List<Integer> accessoryIds = new ArrayList<>();
+                for(int i = 0; i < accesories.size(); i++) {
+                    accessoryIds.add(accesories.get(i).getId());
+                }
 
                 if (logEnabled) {
                     logger.info("Dealer {}: Auto {} (Body: {}, Motor: {}, Accessory: {})",
@@ -36,7 +45,7 @@ public class Dealer implements Runnable{
                             auto.getId(),
                             auto.getBody().getId(),
                             auto.getEngine().getId(),
-                            auto.getAccessory().getId());
+                            accessoryIds);
                 }
             }
         } catch(InterruptedException e) {

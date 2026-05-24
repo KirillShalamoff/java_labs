@@ -1,5 +1,8 @@
 package Controllers;
 
+import Items.Accessory;
+import Items.Body;
+import Items.Engine;
 import Storeges.Storage;
 import Pool.ThreadPool;
 import Supply.ItemSupplier;
@@ -22,34 +25,48 @@ public class UIController {
     @FXML private Label accessoryLabel;
     @FXML private Label autoLabel;
 
-    @FXML private Slider supplierSlider;
+    @FXML private Slider bodySupplierSlider;
+    @FXML private Slider engineSupplierSlider;
+    @FXML private Slider accessorySupplierSlider;
     @FXML private Slider dealerSlider;
     @FXML private Label tasksInQueueLabel;
 
     private Storage<?> bodyStorage, engineStorage, accessoryStorage, autoStorage;
     private ThreadPool pool;
 
-    public void initData(Storage<?> body, Storage<?> engine, Storage<?> accessory,
-                         Storage<?> auto, ThreadPool pool,
-                         List<ItemSupplier<?>> suppliers, List<Dealer> dealers) {
+    public void initData(Storage<?> body, Storage<?> engine, Storage<?> accessory, Storage<?> auto,
+                         ThreadPool pool,
+                         List<ItemSupplier<Body>> bodySuppliers,
+                         List<ItemSupplier<Engine>> engineSuppliers,
+                         List<ItemSupplier<Accessory>> accessorySuppliers,
+                         List<Dealer> dealers) {
         this.bodyStorage = body;
         this.engineStorage = engine;
         this.accessoryStorage = accessory;
         this.autoStorage = auto;
         this.pool = pool;
 
-        supplierSlider.valueProperty().addListener((obs, old, val) -> {
-            int delay = val.intValue();
-            suppliers.forEach(s -> s.setDelay(delay));
+        // 1. Слайдер поставщиков КУЗОВОВ
+        bodySupplierSlider.valueProperty().addListener((obs, old, val) -> {
+            bodySuppliers.forEach(s -> s.setDelay(val.intValue()));
         });
 
-        // Настройка слайдера дилеров
+        // 2. Слайдер поставщиков ДВИГАТЕЛЕЙ
+        engineSupplierSlider.valueProperty().addListener((obs, old, val) -> {
+            engineSuppliers.forEach(s -> s.setDelay(val.intValue()));
+        });
+
+        // 3. Слайдер поставщиков АКСЕССУАРОВ
+        accessorySupplierSlider.valueProperty().addListener((obs, old, val) -> {
+            accessorySuppliers.forEach(s -> s.setDelay(val.intValue()));
+        });
+
+        // 4. Слайдер ДИЛЕРОВ
         dealerSlider.valueProperty().addListener((obs, old, val) -> {
-            int delay = val.intValue();
-            dealers.forEach(d -> d.setDelay(delay));
+            dealers.forEach(d -> d.setDelay(val.intValue()));
         });
 
-        // Главный цикл обновления GUI (выполняется в JavaFX Application Thread)
+        // Главный таймер обновления GUI
         new AnimationTimer() {
             @Override
             public void handle(long now) {

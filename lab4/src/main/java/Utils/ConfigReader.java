@@ -14,6 +14,8 @@ public class ConfigReader {
     public final int storageEngineSize;
     public final int storageAccessorySize;
     public final int storageAutoSize;
+    public final int accessoryCountRequired;
+
 
     // Параметры потоков
     public final int accessorySuppliers;
@@ -49,8 +51,9 @@ public class ConfigReader {
         this.workers = Integer.parseInt(props.getProperty("Workers", "10"));
         this.dealers = Integer.parseInt(props.getProperty("Dealers", "20"));
 
-        this.logSale = Boolean.parseBoolean(props.getProperty("LogSale", "false"));
 
+        this.logSale = Boolean.parseBoolean(props.getProperty("LogSale", "false"));
+        this.accessoryCountRequired = Integer.parseInt(props.getProperty("AccessoryPerAuto", "1"));
         logger.info("Конфигурация успешно загружена из {}", fileName);
     }
 }

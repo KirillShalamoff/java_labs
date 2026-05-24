@@ -7,15 +7,19 @@ import Items.Engine;
 import Storeges.Storage;
 import IdGenerator.IdGenerator;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class BuildCarTask implements Runnable {
     private final Storage<Engine> engineStorage;
     private final Storage<Body> bodyStorage;
     private final Storage<Accessory> accessoryStorage;
     private final Storage<Auto> autoStorage;
+    private final int accessoryCountRequired;
 
     public BuildCarTask(Storage<Engine> engineStorage, Storage<Body> bodyStorage,
-                        Storage<Accessory> accessoryStorage, Storage<Auto> autoStorage) {
-
+                        Storage<Accessory> accessoryStorage, Storage<Auto> autoStorage, int accessoryCountRequired) {
+        this.accessoryCountRequired = accessoryCountRequired;
         this.autoStorage = autoStorage;
         this.accessoryStorage = accessoryStorage;
         this.bodyStorage = bodyStorage;
@@ -26,10 +30,13 @@ public class BuildCarTask implements Runnable {
     public void run() {
         try {
             Body b = bodyStorage.get();
-            Accessory a = accessoryStorage.get();
+            List<Accessory> extractedAccories = new ArrayList<>();
+            for(int i = 0; i < accessoryCountRequired; i++) {
+                extractedAccories.add(accessoryStorage.get());
+            }
             Engine e = engineStorage.get();
 
-            Auto auto = new Auto(IdGenerator.nextId(), b, e, a);
+            Auto auto = new Auto(IdGenerator.nextId(), b, e, extractedAccories);
             autoStorage.put(auto);
 
             // Добавь это, чтобы увидеть жизнь в консоли!

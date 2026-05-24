@@ -18,11 +18,15 @@ import IdGenerator.IdGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
+//готовиться к теории
 
 public class MainApp extends Application {
 
     private final List<Thread> allThreads = new ArrayList<>();
-    private final List<ItemSupplier<?>> allSuppliers = new ArrayList<>();
+    private final List<ItemSupplier<Body>> bodySuppliers = new ArrayList<>();
+    private final List<ItemSupplier<Engine>> engineSuppliers = new ArrayList<>();
+    private final List<ItemSupplier<Accessory>> accessorySuppliers = new ArrayList<>();
+
     private final List<Dealer> allDealers = new ArrayList<>();
 
     private ConfigReader config;
@@ -38,19 +42,21 @@ public class MainApp extends Application {
             Storage<Engine> engineStorage = new Storage<>(config.storageEngineSize, "Engine Storage");
             Storage<Accessory> accessoryStorage = new Storage<>(config.storageAccessorySize, "Accessory Storage");
             Storage<Auto> autoStorage = new Storage<>(config.storageAutoSize, "Auto Storage");
+            int accessoryCountRequired = config.accessoryCountRequired;
 
-            CarOrderController controller = new CarOrderController(workersPool, autoStorage, bodyStorage, engineStorage, accessoryStorage);
+            CarOrderController controller = new CarOrderController(workersPool, autoStorage,
+                    bodyStorage, engineStorage, accessoryStorage, accessoryCountRequired);
             autoStorage.setObserver(controller);
 
 
             for (int i = 0; i < config.accessorySuppliers; i++) {
-                allSuppliers.add(new ItemSupplier<>(accessoryStorage, () -> new Accessory(IdGenerator.nextId()), 1000));
+                accessorySuppliers.add(new ItemSupplier<>(accessoryStorage, () -> new Accessory(IdGenerator.nextId()), 1000));
             }
             for (int i = 0; i < 3; i++) {
-                allSuppliers.add(new ItemSupplier<>(bodyStorage, () -> new Body(IdGenerator.nextId()), 1000));
+                bodySuppliers.add(new ItemSupplier<>(bodyStorage, () -> new Body(IdGenerator.nextId()), 1000));
             }
             for (int i = 0; i < 3; i++) {
-                allSuppliers.add(new ItemSupplier<>(engineStorage, () -> new Engine(IdGenerator.nextId()), 1000));
+                engineSuppliers.add(new ItemSupplier<>(engineStorage, () -> new Engine(IdGenerator.nextId()), 1000));
             }
 
             for (int i = 0; i < config.dealers; i++) {
@@ -61,7 +67,8 @@ public class MainApp extends Application {
             Parent root = loader.load();
             UIController uiController = loader.getController();
 
-            uiController.initData(bodyStorage, engineStorage, accessoryStorage, autoStorage, workersPool, allSuppliers, allDealers);
+            uiController.initData(bodyStorage, engineStorage, accessoryStorage,
+                    autoStorage, workersPool, bodySuppliers, engineSuppliers, accessorySuppliers, allDealers);
 
             primaryStage.setTitle("NSU Car Factory Monitor");
             primaryStage.setScene(new Scene(root));
@@ -69,8 +76,16 @@ public class MainApp extends Application {
 
             new Thread(() -> {
                 try {
-                    for (ItemSupplier<?> s : allSuppliers) {
-                        startThread(s, "Supplier");
+                    for (ItemSupplier<Body> s : bodySuppliers) {
+                        startThread(s, "BodySupplier");
+                    }
+                    // Запускаем поставщиков двигателей
+                    for (ItemSupplier<Engine> s : engineSuppliers) {
+                        startThread(s, "EngineSupplier");
+                    }
+                    // Запускаем поставщиков аксессуаров
+                    for (ItemSupplier<Accessory> s : accessorySuppliers) {
+                        startThread(s, "AccessorySupplier");
                     }
 
                     Thread.sleep(2000);

@@ -14,12 +14,15 @@ public class CarOrderController implements StorageObserver {
     private final Storage<Body> bodyStorage;
     private final Storage<Engine> engineStorage;
     private final Storage<Accessory> accessoryStorage;
+    private final int accessoryCountRequired;
 
     public CarOrderController(ThreadPool pool,
                               Storage<Auto> autoStorage,
                               Storage<Body> bodyStorage,
                               Storage<Engine> motorStorage,
-                              Storage<Accessory> accessoryStorage) {
+                              Storage<Accessory> accessoryStorage,
+                              int accessoryCountRequired) {
+        this.accessoryCountRequired = accessoryCountRequired;
         this.pool = pool;
         this.autoStorage = autoStorage;
         this.bodyStorage = bodyStorage;
@@ -39,7 +42,7 @@ public class CarOrderController implements StorageObserver {
 
         if (neededTasks > 1) {
             for (int i = 0; i < neededTasks; i++) {
-                pool.execute(new BuildCarTask(engineStorage, bodyStorage, accessoryStorage, autoStorage));
+                pool.execute(new BuildCarTask(engineStorage, bodyStorage, accessoryStorage, autoStorage, accessoryCountRequired));
             }
         }
     }

@@ -4,18 +4,18 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox alignment="CENTER" spacing="20.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.UIController">
+<VBox alignment="CENTER" spacing="20.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.UIController">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
 
-    <Label text="Factory Monitor" style="-fx-font-weight: bold; -fx-font-size: 16px;" />
+    <Label text="Factory Monitor" style="-fx-font-weight: bold; -fx-font-size: 18px;" />
 
     <GridPane hgap="10.0" vgap="10.0">
         <columnConstraints>
-            <ColumnConstraints minWidth="70.0" />
+            <ColumnConstraints minWidth="90.0" />
             <ColumnConstraints hgrow="ALWAYS" />
-            <ColumnConstraints minWidth="50.0" />
+            <ColumnConstraints minWidth="60.0" />
         </columnConstraints>
 
         <Label text="Bodies" GridPane.rowIndex="0" />
@@ -35,13 +35,35 @@
         <Label fx:id="autoLabel" text="0/0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
     </GridPane>
 
-    <VBox spacing="10.0">
-        <Label text="Supplier Delay" />
-        <Slider fx:id="supplierSlider" max="5000.0" min="100.0" value="1000.0" showTickLabels="true" />
+    <Separator />
 
-        <Label text="Dealer Delay" />
-        <Slider fx:id="dealerSlider" max="5000.0" min="100.0" value="1000.0" showTickLabels="true" />
+    <VBox spacing="12.0" alignment="CENTER_LEFT">
+        <Label text="Delays Configuration (ms)" style="-fx-font-weight: bold;" />
+
+        <VBox spacing="2.0">
+            <Label text="Body Supplier Delay" style="-fx-font-size: 11px;" />
+            <Slider fx:id="bodySupplierSlider" max="5000.0" min="100.0" value="1000.0" showTickLabels="true" />
+        </VBox>
+
+        <VBox spacing="2.0">
+            <Label text="Engine Supplier Delay" style="-fx-font-size: 11px;" />
+            <Slider fx:id="engineSupplierSlider" max="5000.0" min="100.0" value="1000.0" showTickLabels="true" />
+        </VBox>
+
+        <VBox spacing="2.0">
+            <Label text="Accessory Supplier Delay" style="-fx-font-size: 11px;" />
+            <Slider fx:id="accessorySupplierSlider" max="5000.0" min="100.0" value="1000.0" showTickLabels="true" />
+        </VBox>
+
+        <Separator />
+
+        <VBox spacing="2.0">
+            <Label text="Dealer Delay" style="-fx-font-weight: bold; -fx-font-size: 11px;" />
+            <Slider fx:id="dealerSlider" max="5000.0" min="100.0" value="1000.0" showTickLabels="true" />
+        </VBox>
     </VBox>
 
-    <Label fx:id="tasksInQueueLabel" text="Tasks in Queue: 0" />
+    <Separator />
+
+    <Label fx:id="tasksInQueueLabel" text="Tasks in Queue: 0" style="-fx-font-family: 'Courier New';" />
 </VBox>

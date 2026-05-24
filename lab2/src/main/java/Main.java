@@ -8,17 +8,13 @@ public class Main {
         final Logger logger = LogManager.getLogger(Calculator.class);
 
         try {
-            logger.info("Инициализация фабрики...");
-            CommandFactory factory = new CommandFactory();
+
 
             logger.info("Инициализация калькулятора...");
-            Calculator calculator = new Calculator(factory);
+            Calculator calculator = new Calculator();
 
-            if (args.length == 0){
-                calculator.calculate();
-            } else {
-                calculator.calculate(args[0]);
-            }
+            calculator.calculate(args);
+
 
         } catch (Exception e) {
             logger.fatal("Критическая ошибка запуска: " + e.getMessage(),e);

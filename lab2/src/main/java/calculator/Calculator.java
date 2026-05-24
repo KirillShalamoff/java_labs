@@ -16,24 +16,21 @@ public class Calculator {
     private final CommandFactory factory;
     private final ExecutionContext context;
 
-    public Calculator(CommandFactory factory){
-        this.factory = factory;
+    public Calculator(){
+        logger.info("Инициализация фабрики...");
+        this.factory = new CommandFactory();
         this.context = new ExecutionContext();
     }
 
-    public void calculate(){
-        calculate("");
-    }
-
-    public void calculate(String filename){
+    public void calculate(String[] args){
         final Logger logger = LogManager.getLogger(Calculator.class);
 
         InputStream is;
-        if (filename.isEmpty()){
+        if (args.length == 0){
             is = System.in;
         } else {
             try {
-                is = new FileInputStream("src/main/resources/" + filename);
+                is = new FileInputStream("src/main/resources/" + args[0]);
             } catch (FileNotFoundException e) {
                 logger.info("Файл не найден, перехожу на ввод из консоли...", e);
                 is = System.in;
